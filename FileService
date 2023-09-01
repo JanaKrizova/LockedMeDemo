@@ -1,0 +1,69 @@
+package com;
+
+import java.io.*;
+import java.util.*;
+
+public class FileService {
+
+
+	    private static final String FILE_DIRECTORY = "files/"; // Change this to your desired directory
+
+	    public static void displayAllFiles() {
+	        File folder = new File(FILE_DIRECTORY);
+	        File[] files = folder.listFiles();
+
+	        if (files != null) {
+	            Arrays.sort(files);
+	            for (File file : files) {
+	                if (file.isFile()) {
+	                    System.out.println(file.getName());
+	                }
+	            }
+	        } else {
+	            System.out.println("No files found in the directory.");
+	        }
+	    }
+
+	    public static void createFile(String fileName) {
+	        try {
+	            File file = new File(FILE_DIRECTORY + fileName);
+	            if (file.createNewFile()) {
+	                System.out.println("File created successfully: " + fileName);
+	            } else {
+	                System.out.println("File already exists: " + fileName);
+	            }
+	        } catch (IOException e) {
+	            System.out.println("An error occurred while creating the file: " + e.getMessage());
+	        }
+	    }
+
+	    public static void deleteFile(String fileName) {
+	        File file = new File(FILE_DIRECTORY + fileName);
+	        if (file.exists()) {
+	            if (file.delete()) {
+	                System.out.println("File deleted successfully: " + fileName);
+	            } else {
+	                System.out.println("Failed to delete the file: " + fileName);
+	            }
+	        } else {
+	            System.out.println("File not found: " + fileName);
+	        }
+	    }
+
+	    public static void searchFiles(String keyword) {
+	        File folder = new File(FILE_DIRECTORY);
+	        File[] files = folder.listFiles();
+
+	        if (files != null) {
+	            System.out.println("Files containing '" + keyword + "':");
+	            for (File file : files) {
+	                if (file.isFile() && file.getName().contains(keyword)) {
+	                    System.out.println(file.getName());
+	                }
+	            }
+	        } else {
+	            System.out.println("No files found in the directory.");
+	        }
+	    }
+	}
+
